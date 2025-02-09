@@ -12,33 +12,36 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
-
-const data = {
-  user: {
-    name: "shadcn",
-    email: "m@example.com",
-    avatar: "/avatars/shadcn.jpg",
-  },
-  menu: [
-    {
-      name: "Dashboard",
-      url: "/dashboard",
-      icon: LayoutDashboard,
-    },
-    {
-      name: "Attendances",
-      url: "#",
-      icon: ListCheck,
-    },
-    {
-      name: "Users",
-      url: "#",
-      icon: Users,
-    },
-  ],
-};
+import { useAppSelector } from "@/app/hooks";
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+  const auth = useAppSelector((state) => state.auth);
+
+  const data = {
+    user: {
+      name: auth?.user?.fullName,
+      email: auth?.user?.email,
+      avatar: "/avatars/shadcn.jpg",
+    },
+    menu: [
+      {
+        name: "Dashboard",
+        url: "/dashboard",
+        icon: LayoutDashboard,
+      },
+      {
+        name: "Attendances",
+        url: "#",
+        icon: ListCheck,
+      },
+      {
+        name: "Users",
+        url: "#",
+        icon: Users,
+      },
+    ],
+  };
+
   return (
     <Sidebar
       className="top-[--header-height] !h-[calc(100svh-var(--header-height))]"
