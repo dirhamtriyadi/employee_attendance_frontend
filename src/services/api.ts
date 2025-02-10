@@ -37,7 +37,7 @@ export const getData = async (endpoint: string, data: any) => {
     throw new Error("Data gagal diambil!");
   }
 
-  return response;
+  return response.data;
 };
 
 // Service untuk mengirim data
@@ -47,11 +47,11 @@ export const postData = async (endpoint: string, data: any) => {
     headers: { Authorization: "Bearer " + localStorage.getItem("token") },
   });
 
-  const response = await instance.get(endpoint, data);
+  const response = await instance.post(endpoint, data);
 
   if (response.status !== 201) {
     throw new Error("Data gagal dikirim!");
   }
 
-  return response;
+  return response.data;
 };
